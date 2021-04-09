@@ -11,7 +11,7 @@ function LerpSmooth1D(x1, x2, p, rate, halfSmooth, infinite) {
 
 //fraction > 0; fraction = N
 //0 <= fpos < fraction; fpos = N
-//https://www.desmos.com/calculator/fxmtt1wttx
+//https://www.desmos.com/calculator/tbxtssvtcn
 function fractionalLine(x1,y1,x2,y2,f,p) {
     if(f <= 0 || p < 0 || p >= f)
         return [x1,y1,x2,y2];
