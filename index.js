@@ -77,9 +77,10 @@ function rotateX4(A, angle) {
 
 function rotateY4(A, angle) {
     var rotMatrix = [
-        [Math.cos(angle), 0, Math.sin(angle)],
-        [0, 1, 0],
-        [-Math.sin(angle), 0, Math.cos(angle)]];
+        [Math.cos(angle), 0, Math.sin(angle),0],
+        [0, 1, 0,0],
+        [-Math.sin(angle), 0, Math.cos(angle),0],
+        [0,0,0,1]];
     return matMul(rotMatrix, A);
 }
 
