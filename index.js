@@ -20,6 +20,39 @@ function fractionalLine(x1,y1,x2,y2,f,p) {
     return [dx*p+x1,dy*p+y1,dx*(p+1)+x1,dy*(p+1)+y1];
 }
 
+// #region Oribital Mechanics
+
+//https://www.desmos.com/calculator/vbsetpue7m
+function eulerStep(pos1,pos2,vel1,vel2,G) {
+    for(let i = 1; i <= 8; i++) {
+        let dt = 1 / i;
+        let acc1 = acceleration(pos2, pos1,G);
+        let acc2 = acceleration(pos1,pos2,G);
+        vel1 = { x: vel1.x + acc1.x * dt, y: vel1.y + acc1.y * dt };
+        vel2 = { x: vel2.x + acc2.x * dt, y: vel2.y + acc2.y * dt };
+        pos1 = { x: pos1.x + vel1.x * dt, y: pos1.y + vel1.y * dt };
+        pos2 = { x: pos2.x + vel2.x * dt, y: pos2.y + vel2.y * dt };
+    }
+    return {pos1: pos1, pos2: pos2, vel1: vel1, vel2: vel2}
+}
+
+function acceleration(pos1,pos2,G) {
+    let direction = {x: pos1.x - pos2.x, y: pos1.y - pos2.y} 
+
+    let length = Math.sqrt((direction.x * direction.x) + (direction.y * direction.y));
+
+    let normal = {x: direction.x / length, y: direction.y / length};
+
+    let constant = G/(length*length);
+
+    return {x: normal.x*constant, y: normalY*constant}
+}
+
+// #endregion
+
+
+// #region Matrix Operations
+
 function matMul(A, B) {
     if (A[0].length != B.length)
         return null;
@@ -35,8 +68,6 @@ function matMul(A, B) {
     }
     return X;
 }
-
-// #endregion
 
 // #region rotation 3D
 
@@ -157,4 +188,6 @@ function rotateXY4(A, angle) {
 // #region Projection
 var project3 = (w) => [[w,0,0,0],[0,w,0,0],[0,0,w,0]];
 var project4 = (z) => [[z,0,0],[0,z,0]];
+//#endregion
+
 //#endregion
