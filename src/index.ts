@@ -3,7 +3,7 @@
 import { Vector2 } from "./types/vector";
 
 //https://www.desmos.com/calculator/c2wkore2bi
-export function LerpSmooth1D(x1: number, x2: number, p: number, rate: number, halfSmooth: boolean, infinite: boolean): number[] {
+function LerpSmooth1D(x1: number, x2: number, p: number, rate: number, halfSmooth: boolean, infinite: boolean): number[] {
     if(infinite || p <= Math.PI * (halfSmooth ? .5 : 1)) {
         p += rate;
         return [((Math.sin(p + (1.5 * Math.PI))+1)*((x2-x1)/(halfSmooth ? 1 : 2)) + x1), p];
@@ -14,7 +14,7 @@ export function LerpSmooth1D(x1: number, x2: number, p: number, rate: number, ha
 //fraction > 0; fraction = N
 //0 <= fpos < fraction; fpos = N
 //https://www.desmos.com/calculator/tbxtssvtcn
-export function fractionalLine(p1: Vector2, p2: Vector2, f: number, p: number): number[] {
+function fractionalLine(p1: Vector2, p2: Vector2, f: number, p: number): number[] {
     if(f <= 0 || p < 0 || p >= f)
         return [p1.x,p1.y,p2.x,p2.y];
     let dx = (p2.x - p1.x)/f;
@@ -25,7 +25,7 @@ export function fractionalLine(p1: Vector2, p2: Vector2, f: number, p: number): 
 // #region Oribital Mechanics
 
 //https://www.desmos.com/calculator/vbsetpue7m
-export function eulerStep(p1: Vector2, p2: Vector2, v1: Vector2, v2: Vector2, G: number): Vector2[] {
+function eulerStep(p1: Vector2, p2: Vector2, v1: Vector2, v2: Vector2, G: number): Vector2[] {
     for(let i = 1; i <= 8; i++) {
         let dt = 1 / i;
         let acc1: Vector2 = acceleration(p2, p1, G);
@@ -38,7 +38,7 @@ export function eulerStep(p1: Vector2, p2: Vector2, v1: Vector2, v2: Vector2, G:
     return [p1, p2, v1, v2];
 }
 
-export function acceleration(p1: Vector2, p2: Vector2, G: number): Vector2 {
+function acceleration(p1: Vector2, p2: Vector2, G: number): Vector2 {
     let direction: Vector2 = {x: p1.x - p2.x, y: p1.y - p2.y} 
 
     let length = Math.sqrt((direction.x * direction.x) + (direction.y * direction.y));
@@ -55,7 +55,7 @@ export function acceleration(p1: Vector2, p2: Vector2, G: number): Vector2 {
 
 // #region Matrix Operations
 
-export function matMul(A: number[][], B: number[][]): number[][] | null {
+function matMul(A: number[][], B: number[][]): number[][] | null {
     if (A[0].length != B.length)
         return null;
     var X = new Array(A.length);
@@ -73,7 +73,7 @@ export function matMul(A: number[][], B: number[][]): number[][] | null {
 
 // #region rotation 3D
 
-export function rotateX3(A: number[][], angle: number): number[][] | null {
+function rotateX3(A: number[][], angle: number): number[][] | null {
     let rotMatrix = [
         [1, 0, 0],
         [0, Math.cos(angle), -Math.sin(angle)],
@@ -81,7 +81,7 @@ export function rotateX3(A: number[][], angle: number): number[][] | null {
     return matMul(rotMatrix, A);
 }
 
-export function rotateY3(A: number[][], angle: number): number[][] | null {
+function rotateY3(A: number[][], angle: number): number[][] | null {
     let rotMatrix = [
         [Math.cos(angle), 0, Math.sin(angle)],
         [0, 1, 0],
@@ -89,7 +89,7 @@ export function rotateY3(A: number[][], angle: number): number[][] | null {
     return matMul(rotMatrix, A);
 }
 
-export function rotateZ3(A: number[][], angle: number): number[][] | null {
+function rotateZ3(A: number[][], angle: number): number[][] | null {
     let rotMatrix = [
         [Math.cos(angle), -Math.sin(angle), 0],
         [Math.sin(angle), Math.cos(angle), 0],
@@ -100,7 +100,7 @@ export function rotateZ3(A: number[][], angle: number): number[][] | null {
 
 // #region rotation 4D
 
-export function rotateX4(A: number[][], angle: number): number[][] | null {
+function rotateX4(A: number[][], angle: number): number[][] | null {
     let rotMatrix = [
         [1, 0, 0,0],
         [0, Math.cos(angle), -Math.sin(angle),0],
@@ -117,7 +117,7 @@ function rotateY4(A: number[][], angle: number): number[][] | null {
     return matMul(rotMatrix, A);
 }
 
-export function rotateZ4(A: number[][], angle: number): number[][] | null {
+function rotateZ4(A: number[][], angle: number): number[][] | null {
     let rotMatrix = [
         [Math.cos(angle), -Math.sin(angle), 0, 0],
         [Math.sin(angle), Math.cos(angle), 0, 0],
@@ -125,7 +125,7 @@ export function rotateZ4(A: number[][], angle: number): number[][] | null {
     return matMul(rotMatrix, A);
 }
 
-export function rotateZW4(A: number[][], angle: number): number[][] | null {
+function rotateZW4(A: number[][], angle: number): number[][] | null {
     let rotationMatrix = [
         [Math.cos(angle), -Math.sin(angle), 0, 0],
         [Math.sin(angle), Math.cos(angle), 0, 0],
@@ -135,7 +135,7 @@ export function rotateZW4(A: number[][], angle: number): number[][] | null {
     return matMul(rotationMatrix, A);
 }
 
-export function rotateYW4(A: number[][], angle: number): number[][] | null {
+function rotateYW4(A: number[][], angle: number): number[][] | null {
     let rotationMatrix = [
         [Math.cos(angle), 0, -Math.sin(angle), 0],
         [0, 1, 0, 0],
@@ -145,7 +145,7 @@ export function rotateYW4(A: number[][], angle: number): number[][] | null {
     return matMul(rotationMatrix, A);
 }
 
-export function rotateYZ4(A: number[][], angle:number): number[][] | null {
+function rotateYZ4(A: number[][], angle:number): number[][] | null {
     let rotationMatrix = [
         [Math.cos(angle), 0, 0, -Math.sin(angle)],
         [0, 1, 0, 0],
@@ -155,7 +155,7 @@ export function rotateYZ4(A: number[][], angle:number): number[][] | null {
     return matMul(rotationMatrix, A);
 }
 
-export function rotateXW4(A:number[][], angle: number): number[][] | null {
+function rotateXW4(A:number[][], angle: number): number[][] | null {
     let rotationMatrix = [
         [1, 0, 0, 0],
         [0, Math.cos(angle), -Math.sin(angle), 0],
@@ -165,7 +165,7 @@ export function rotateXW4(A:number[][], angle: number): number[][] | null {
     return matMul(rotationMatrix, A);
 }
 
-export function rotateXZ4(A: number[][], angle: number): number[][] | null {
+function rotateXZ4(A: number[][], angle: number): number[][] | null {
     let rotationMatrix = [
         [1, 0, 0, 0],
         [0, Math.cos(angle), 0, -Math.sin(angle)],
@@ -175,7 +175,7 @@ export function rotateXZ4(A: number[][], angle: number): number[][] | null {
     return matMul(rotationMatrix, A);
 }
 
-export function rotateXY4(A: number[][], angle: number): number[][] | null {
+function rotateXY4(A: number[][], angle: number): number[][] | null {
     let rotationMatrix = [
         [1, 0, 0, 0],
         [0, 1, 0, 0],
@@ -188,8 +188,8 @@ export function rotateXY4(A: number[][], angle: number): number[][] | null {
 // #endregion
 
 // #region Projection
-export const project3 = (w: number): number[][] => [[w,0,0,0],[0,w,0,0],[0,0,w,0]];
-export const project4 = (z: number): number[][] => [[z,0,0],[0,z,0]];
+ const project3 = (w: number): number[][] => [[w,0,0,0],[0,w,0,0],[0,0,w,0]];
+ const project4 = (z: number): number[][] => [[z,0,0],[0,z,0]];
 //#endregion
 
 //#endregion

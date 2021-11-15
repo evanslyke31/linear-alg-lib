@@ -1,6 +1,6 @@
 {
   "name": "linear-alg-lib",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Linear algebra library to support my 2D-3D visualizations.",
   "main": "index.js",
   "scripts": {
