@@ -17,6 +17,9 @@ function fractionalLine(p1, p2, f, p) {
     let dy = (p2.y - p1.y) / f;
     return [dx * p + p1.x, dy * p + p1.y, dx * (p + 1) + p1.x, dy * (p + 1) + p1.y];
 }
+function euclideanDistance(p1, p2) {
+    return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+}
 // #region Oribital Mechanics
 //https://www.desmos.com/calculator/vbsetpue7m
 function eulerStep(p1, p2, v1, v2, G) {

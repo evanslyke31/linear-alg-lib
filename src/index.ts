@@ -22,6 +22,11 @@ function fractionalLine(p1: Vector2, p2: Vector2, f: number, p: number): number[
     return [dx*p+p1.x,dy*p+p1.y,dx*(p+1)+p1.x,dy*(p+1)+p1.y];
 }
 
+
+function euclideanDistance(p1: Vector2, p2: Vector2) {
+    return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+}
+
 // #region Oribital Mechanics
 
 //https://www.desmos.com/calculator/vbsetpue7m
