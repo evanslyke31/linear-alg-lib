@@ -1,4 +1,4 @@
-// #region Supporting Linear Alg
+
 //https://www.desmos.com/calculator/c2wkore2bi
 function LerpSmooth1D(x1, x2, p, rate, halfSmooth, infinite) {
     if (infinite || p <= Math.PI * (halfSmooth ? .5 : 1)) {
@@ -165,7 +165,6 @@ function rotateXY4(A, angle) {
 // #region Projection
 const project3 = (w) => [[w, 0, 0, 0], [0, w, 0, 0], [0, 0, w, 0]];
 const project4 = (z) => [[z, 0, 0], [0, z, 0]];
-export {};
 //#endregion
 //#endregion
 //# sourceMappingURL=index.js.map

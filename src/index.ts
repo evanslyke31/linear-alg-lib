@@ -188,8 +188,8 @@ function rotateXY4(A: number[][], angle: number): number[][] | null {
 // #endregion
 
 // #region Projection
- const project3 = (w: number): number[][] => [[w,0,0,0],[0,w,0,0],[0,0,w,0]];
- const project4 = (z: number): number[][] => [[z,0,0],[0,z,0]];
+const project3 = (w: number): number[][] => [[w,0,0,0],[0,w,0,0],[0,0,w,0]];
+const project4 = (z: number): number[][] => [[z,0,0],[0,z,0]];
 //#endregion
 
 //#endregion
